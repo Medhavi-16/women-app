@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,Image,FlatList } from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity,Image,FlatList, Dimensions } from 'react-native';
 import {colors} from '../constants/theme'
 import Constant from 'expo-constants';
 import axios from 'axios';
@@ -106,7 +106,40 @@ const HomeScreen=props=>{
               keyExtractor={item => item.id}
             />
         </View>
+        
+        <View>
+          <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('Maps', {
+              id: 'wc',
+            });
+          }}
+          style={styles.wc}>
+            <Image
+                source={require('../../assets/wc.jpg')}
+                style={{ width: 60, height: 60, borderRadius:30, marginStart:-5, marginTop:-7 }}
+              />
+              <Text style={{alignSelf:'center',marginStart:10, fontSize:20}}>Find Toilets</Text>
+          </TouchableOpacity>
         </View>
+        <View>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('Maps', {
+              id: 'wc',
+            });
+          }}
+          style={styles.police}>
+            <Image
+                source={require('../../assets/vector-police-station.png')}
+                style={{ width: 60, height: 60, borderRadius:30, marginStart:-5,marginTop:-7 }}
+              />
+              <Text style={{alignSelf:'center',marginStart:10, fontSize:20}}>Find Police Stations</Text>
+          </TouchableOpacity>
+        </View>
+        </View>
+       
+        
     )
 }
 export default HomeScreen
@@ -184,4 +217,23 @@ const styles = StyleSheet.create({
       trackImage: {
         opacity: 1
       },
+      wc:{
+        marginStart:10,
+        elevation:10,
+        width:Dimensions.get('window').width-10,
+        height:45,
+        backgroundColor:colors.lightPink,
+        borderRadius:80,
+        flexDirection:'row'
+      },
+      police:{
+        marginStart:10,
+        elevation:10,
+        width:Dimensions.get('window').width-10,
+        height:45,
+        backgroundColor:'#D4F1F4',
+        borderRadius:80,
+        flexDirection:'row',
+        marginTop:7
+      }
 })

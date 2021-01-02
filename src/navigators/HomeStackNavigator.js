@@ -4,6 +4,7 @@ const Stack = createStackNavigator();
 import HomeScreen from '../screens/HomeScreen'
 import Shows from '../screens/Shows'
 import Episodes from '../screens/Episodes'
+import Maps from '../screens/Maps'
 
 
 const HomeStackNavigator = () => {
@@ -22,6 +23,11 @@ const HomeStackNavigator = () => {
         <Stack.Screen
           name='Episode'
           component={Episodes}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='Maps'
+          component={Maps}
           options={{ headerShown: false }}
         />
   
