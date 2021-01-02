@@ -14,6 +14,7 @@ import HomeStackNavigator from './HomeStackNavigator';
 import HealthStackNavigator from './HealthStackNavigator';
 import ChatScreen from '../screens/ChatScreen';
 import NetworkingStackNavigator from './NetworkingStackNavigator';
+import TrackernAnalysisStackNavigator from './TrackernAnalysisStackNavigator'
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +25,8 @@ const TabNavigation = () => {
         tabBarIcon: ({ focused, color, size }) => {
           if (route.name === 'Home') {
             return <Feather name='home' size={size} color={color} />;
+          } else if (route.name === 'TrackernAnalysis') {
+            return <Ionicons name='analytics-outline' size={size} color={color} />;
           } else if (route.name === 'Health') {
             return <Ionicons name='heart-half-outline' size={size} color={color} />;
           } else if (route.name === 'Chat') {
@@ -53,9 +56,11 @@ const TabNavigation = () => {
       }}
     >
       <Tab.Screen name='Home' component={HomeStackNavigator} />
+      <Tab.Screen name='TrackernAnalysis' component={TrackernAnalysisStackNavigator} />
       <Tab.Screen name='Health' component={HealthStackNavigator} />
       <Tab.Screen name='Chat' component={ChatScreen} />
       <Tab.Screen name='Network' component={NetworkingStackNavigator} />
+      
     </Tab.Navigator>
   );
 };

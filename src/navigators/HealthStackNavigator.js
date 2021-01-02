@@ -5,7 +5,7 @@ import HealthScreen from '../screens/HealthScreen'
 
 const HealthStackNavigator = () => {
     return (
-      <Stack.Navigator initialRouteName='Home'>
+      <Stack.Navigator>
         <Stack.Screen
           name='Health'
           component={HealthScreen}
