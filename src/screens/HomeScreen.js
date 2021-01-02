@@ -5,6 +5,7 @@ import Constant from 'expo-constants';
 import axios from 'axios';
 import base64 from 'react-native-base64';
 import Carousel from 'react-native-snap-carousel';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const carousalItems=[
   {uri:'https://i.pinimg.com/564x/24/4c/11/244c110b0505fc65fbc55070fbf2abbc.jpg'},
@@ -109,6 +110,9 @@ const HomeScreen=props=>{
 
     return(
         <View style={styles.container}>
+          <ScrollView>
+
+          
         <View style={styles.header}>
           <View>
             <Text style={styles.helloText}>Hello!</Text>
@@ -192,6 +196,7 @@ const HomeScreen=props=>{
                   renderItem={renderCarousalItem}
                   //onSnapToItem = { index => this.setState({activeIndex:index}) } 
                   />
+                  </ScrollView>
         </View>
        
         
