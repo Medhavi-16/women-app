@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from 'react';
-import MapView from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions } from 'react-native';
+import MapView, {Marker} from 'react-native-maps';
+import { StyleSheet, Text, View, Dimensions,Image } from 'react-native';
 import * as Location from 'expo-location'
 import * as Permissions from 'expo-permissions'
 import axios from 'axios';
@@ -10,6 +10,7 @@ const Maps=props=> {
   const [currentCo, setCurrentCo]=useState(null)
   const [mapRegion,setMapRegion]=useState(null)
   const [poi,setPoi]=useState([])
+  const [poiImage,setPoiImage]=useState('')
   useEffect(()=>{
     const getPermission = async()=>{
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -21,7 +22,7 @@ const Maps=props=> {
     const getLocation = async()=>{
    let location = await Location.getCurrentPositionAsync({});
      setCurrentCo(JSON.stringify(location));
-     setMapRegion({ latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 0.05, longitudeDelta: 0.05 })
+     setMapRegion({ latitude: location.coords.latitude, longitude: location.coords.longitude, latitudeDelta: 0.04, longitudeDelta: 0.04 })
      if(mapRegion!=null)
      {
       console.log('MapRegion',mapRegion)
@@ -41,11 +42,45 @@ const Maps=props=> {
     getPoi(); 
   },[]);
 
+
+  const mapMarkers=()=>{
+    if(props.route.params.id=='toilet')
+    {
+      return poi.map((item) => <MapView.Marker
+      key={item['id']}
+      coordinate={{ latitude: item['position']['lat'], longitude: item['position']['lon'] }}
+      title={item['name']}
+      description={item['name']}
+      image={require("../../assets/toilet.png")}
+      style={{width:50, height:50}}
+    >
+      {/* <Image source={require("../../assets/toilet.png")} style={{width:20, height:20}}/> */}
+    </MapView.Marker >)
+    }
+    else{
+      return poi.map((item) => <MapView.Marker
+      key={item['id']}
+      coordinate={{ latitude: item['position']['lat'], longitude: item['position']['lon'] }}
+      title={item['name']}
+      description={item['name']}
+      image={require("../../assets/police.png")}
+      style={{width:50, height:50}}
+    >
+      {/* <Image source={require("../../assets/toilet.png")} style={{width:20, height:20}}/> */}
+    </MapView.Marker >)
+    }
+    
+
+  }
+
   return (
     <View style={styles.container}>
       <MapView style={styles.map} 
       initialRegion={{...mapRegion}}
-      showsPointsOfInterest={true}/>
+      showsPointsOfInterest={true}
+      showsUserLocation={true}>
+      {mapMarkers()}
+      </MapView>
     </View>
   );
 }
