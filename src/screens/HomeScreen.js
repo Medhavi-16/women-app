@@ -145,7 +145,7 @@ const HomeScreen=props=>{
           <TouchableOpacity
           onPress={() => {
             props.navigation.navigate('Maps', {
-              id: 'wc',
+              id: 'toilet',
             });
           }}
           style={styles.wc}>
@@ -160,7 +160,7 @@ const HomeScreen=props=>{
         <TouchableOpacity
           onPress={() => {
             props.navigation.navigate('Maps', {
-              id: 'wc',
+              id: 'police station',
             });
           }}
           style={styles.police}>
