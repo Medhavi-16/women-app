@@ -1,9 +1,11 @@
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect, useRef} from 'react';
 import MapView, {Marker} from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions,Image } from 'react-native';
+import { StyleSheet, Text, View, Dimensions,Image,TouchableHighlight } from 'react-native';
 import * as Location from 'expo-location'
 import * as Permissions from 'expo-permissions'
 import axios from 'axios';
+import MapReviews from '../components/MapReviews'
+import RBSheet from "react-native-raw-bottom-sheet";
 
 const Maps=props=> {
   const [permissionStatus, setPermissionStatus]=useState(false)
@@ -11,6 +13,8 @@ const Maps=props=> {
   const [mapRegion,setMapRegion]=useState(null)
   const [poi,setPoi]=useState([])
   const [poiImage,setPoiImage]=useState('')
+  const [selectedMarker, setSelectedMarker]=useState(null)
+  const refRBSheet = useRef()
   useEffect(()=>{
     const getPermission = async()=>{
       let { status } = await Permissions.askAsync(Permissions.LOCATION);
@@ -42,6 +46,12 @@ const Maps=props=> {
     getPoi(); 
   },[]);
 
+  const markerClick=(item)=>{
+    console.log("Marker was clicked")
+    setSelectedMarker(item)
+    refRBSheet.current.open()
+  }
+
 
   const mapMarkers=()=>{
     if(props.route.params.id=='toilet')
@@ -53,8 +63,9 @@ const Maps=props=> {
       description={item['name']}
       image={require("../../assets/toilet.png")}
       style={{width:50, height:50}}
-    >
-      {/* <Image source={require("../../assets/toilet.png")} style={{width:20, height:20}}/> */}
+      onPress={(e) => {e.stopPropagation(); markerClick(item)}}
+       >
+ 
     </MapView.Marker >)
     }
     else{
@@ -65,13 +76,13 @@ const Maps=props=> {
       description={item['name']}
       image={require("../../assets/police.png")}
       style={{width:50, height:50}}
+      onPress={(e) => {e.stopPropagation(); markerClick(item)}}
     >
-      {/* <Image source={require("../../assets/toilet.png")} style={{width:20, height:20}}/> */}
     </MapView.Marker >)
-    }
-    
+    }  
 
   }
+  
 
   return (
     <View style={styles.container}>
@@ -81,6 +92,23 @@ const Maps=props=> {
       showsUserLocation={true}>
       {mapMarkers()}
       </MapView>
+      <RBSheet
+        ref={refRBSheet}
+        closeOnDragDown={true}
+        closeOnPressMask={true}
+        dragFromTopOnly={true}
+        customStyles={{
+          wrapper: {
+            backgroundColor: "transparent"
+          },
+          draggableIcon: {
+            backgroundColor: "#000"
+          }
+        }}
+      >
+        <MapReviews
+        marker={selectedMarker}/>
+      </RBSheet>
     </View>
   );
 }
