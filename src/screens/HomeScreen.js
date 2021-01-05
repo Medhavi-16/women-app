@@ -1,9 +1,19 @@
 import React,{useState,useEffect} from 'react';
-import { StyleSheet, Text, View,TouchableOpacity,Image,FlatList } from 'react-native';
+import { StyleSheet, Text, View,TouchableOpacity,Image,FlatList, Dimensions } from 'react-native';
 import {colors} from '../constants/theme'
 import Constant from 'expo-constants';
 import axios from 'axios';
 import base64 from 'react-native-base64';
+import Carousel from 'react-native-snap-carousel';
+import { ScrollView } from 'react-native-gesture-handler';
+
+const carousalItems=[
+  {uri:'https://i.pinimg.com/564x/24/4c/11/244c110b0505fc65fbc55070fbf2abbc.jpg'},
+  {uri:'https://i.pinimg.com/564x/1b/a2/44/1ba2449fe29e62de01c4ec969e1e86e3.jpg'},
+  {uri:'https://i.pinimg.com/236x/91/1b/0e/911b0ede774cf4b22d7aa21cdb5d131a.jpg'},
+  {uri:'https://i.pinimg.com/564x/42/cc/18/42cc18bb5baee5baee7dc497e6d0d7a3.jpg'}
+
+]
 
 const HomeScreen=props=>{
     const [playlist, setPlaylist] = useState([]);
@@ -72,13 +82,37 @@ const HomeScreen=props=>{
           </TouchableOpacity>
         );
       };
+       
+      const renderCarousalItem=({item,index})=>{
+                return (
+                  <View style={{
+                      backgroundColor:'floralwhite',
+                      borderRadius: 5,
+                      height: 180,
+                      width:200,
+                      marginStart:100,
+                      marginTop:10,
+                      elevation:5
+                      
+                     }}>
+                    <Image
+                    source={{uri:item.uri}}
+                    style={{borderRadius: 5,
+                      height: 180,
+                      width:200,}}/>
+                  </View>
 
+                )
+            }
 
 
 
 
     return(
         <View style={styles.container}>
+          <ScrollView>
+
+          
         <View style={styles.header}>
           <View>
             <Text style={styles.helloText}>Hello!</Text>
@@ -106,7 +140,66 @@ const HomeScreen=props=>{
               keyExtractor={item => item.id}
             />
         </View>
+        
+        <View>
+          <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('Maps', {
+              id: 'toilet',
+            });
+          }}
+          style={styles.wc}>
+            <Image
+                source={require('../../assets/wc.jpg')}
+                style={{ width: 60, height: 60, borderRadius:30, marginStart:-5, marginTop:-7 }}
+              />
+              <Text style={{alignSelf:'center',marginStart:10, fontSize:17}}>Find Washrooms</Text>
+          </TouchableOpacity>
         </View>
+        <View>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('Maps', {
+              id: 'police station',
+            });
+          }}
+          style={styles.police}>
+            <Image
+                source={require('../../assets/vector-police-station.png')}
+                style={{ width: 60, height: 60, borderRadius:30, marginStart:-5,marginTop:-7 }}
+              />
+              <Text style={{alignSelf:'center',marginStart:10, fontSize:17}}>Find Police Stations</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+        <TouchableOpacity
+          onPress={() => {
+            props.navigation.navigate('Maps', {
+              id: 'wc',
+            });
+          }}
+          style={styles.whm}>
+            <Image
+                source={require('../../assets/whm.jpeg')}
+                style={{ width: 60, height: 60, borderRadius:30, marginStart:-5,marginTop:-7 }}
+              />
+              <Text style={{alignSelf:'center',marginStart:10, fontSize:17}}>Find Women Support Centres</Text>
+          </TouchableOpacity>
+        </View>
+        <Text style={{fontSize:15, alignSelf:'center', marginTop:25, textDecorationLine:'underline'}}>Topic of the Week: Self Defense</Text>
+        <Carousel
+                  layout={'stack'}
+                  //ref={ref => this.carousel = ref}
+                  data={carousalItems}
+                  sliderWidth={300}
+                  itemWidth={300}
+                  renderItem={renderCarousalItem}
+                  //onSnapToItem = { index => this.setState({activeIndex:index}) } 
+                  />
+                  </ScrollView>
+        </View>
+       
+        
     )
 }
 export default HomeScreen
@@ -184,4 +277,33 @@ const styles = StyleSheet.create({
       trackImage: {
         opacity: 1
       },
+      wc:{
+        marginStart:10,
+        elevation:10,
+        width:Dimensions.get('window').width-15,
+        height:40,
+        backgroundColor:colors.lightPink,
+        borderRadius:80,
+        flexDirection:'row'
+      },
+      police:{
+        marginStart:10,
+        elevation:10,
+        width:Dimensions.get('window').width-15,
+        height:40,
+        backgroundColor:'#D4F1F4',
+        borderRadius:80,
+        flexDirection:'row',
+        marginTop:7
+      },
+      whm:{
+        marginStart:10,
+        elevation:10,
+        width:Dimensions.get('window').width-15,
+        height:40,
+        backgroundColor:colors.cream,
+        borderRadius:80,
+        flexDirection:'row',
+        marginTop:7
+      }
 })
