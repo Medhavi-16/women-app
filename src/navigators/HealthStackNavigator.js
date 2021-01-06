@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 const Stack = createStackNavigator();
 import HealthScreen from '../screens/HealthScreen'
+import Diseases from '../screens/Diseases'
 
 const HealthStackNavigator = () => {
     return (
@@ -11,6 +12,10 @@ const HealthStackNavigator = () => {
           component={HealthScreen}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name='Diseases'
+          component={Diseases}
+          options={{headerShown:false}}/>
   
         
       </Stack.Navigator>
