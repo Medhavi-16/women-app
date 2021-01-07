@@ -15,6 +15,7 @@ import HealthStackNavigator from './HealthStackNavigator';
 import ChatScreen from '../screens/ChatScreen';
 import NetworkingStackNavigator from './NetworkingStackNavigator';
 import TrackernAnalysisStackNavigator from './TrackernAnalysisStackNavigator'
+import ChatStackNavigator from './ChatStackNavigator'
 
 const Tab = createBottomTabNavigator();
 
@@ -58,7 +59,7 @@ const TabNavigation = () => {
       <Tab.Screen name='Home' component={HomeStackNavigator} />
       <Tab.Screen name='TrackernAnalysis' component={TrackernAnalysisStackNavigator} />
       <Tab.Screen name='Health' component={HealthStackNavigator} />
-      <Tab.Screen name='Chat' component={ChatScreen} />
+      <Tab.Screen name='Chat' component={ChatStackNavigator} />
       <Tab.Screen name='Network' component={NetworkingStackNavigator} />
       
     </Tab.Navigator>
