@@ -114,12 +114,12 @@ const Chatbot = props => {
         botAvatar={
           'https://i.pinimg.com/736x/fd/a1/3b/fda13b9d6d88f25a9d968901d319216a.jpg'
         }
-        botFontColor={colors.secondary}
-        bubbleStyle={{ backgroundColor: colors.accent }}
+        botFontColor={colors.white}
+        bubbleStyle={{ backgroundColor: colors.tertiary }}
         optionFontColor={colors.white}
         optionBubbleColor={colors.secondary}
-        userBubbleStyle={{ backgroundColor: colors.accent }}
-        userFontColor={colors.secondary}
+        userBubbleStyle={{ backgroundColor: colors.primary }}
+        userFontColor={colors.black}
         submitButtonStyle={{
           backgroundColor: colors.accent,
           color: colors.white
