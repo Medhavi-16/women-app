@@ -14,7 +14,7 @@ var radiogroup_options = [
   ];
 const reviews=[{id:'1',review:'Nice'}, {id:'2', review:'Excellent'}, {id:'3',review:'Very Clean'}]
 const queries=[{q:'Does it have dustbins?',review:'Yes'}, {q:'Does it have pad vending machine?', review:'No'}, {q:'Does it have pad incinerator?',review:'Yes'},{q:'Does it have liquid handwash?',review:'Yes'}]
-const MapReviews=(marker)=>{
+const MapReviews=({marker,id})=>{
     console.log('marker',marker)
     const [modalVisible,setModalVisible]=useState(false)
     const [sbModalVisible,setSbModalVisible]=useState(false)
@@ -145,12 +145,12 @@ const MapReviews=(marker)=>{
             </View>
             </View>
             </Modal>
-            <ScrollView>
-
             
-            <Text style={{color:colors.secondary,fontWeight:'bold', textAlign:'center'}}>{marker['marker']['poi']['name']}</Text>
-            <Text style={{color:colors.secondary, textAlign:'center'}}>{marker['marker']['address']['freeformAddress']}</Text>
-            <View style={{flexDirection:'row', width:Dimensions.get('window').width-10, marginHorizontal:10, marginTop:10, justifyContent:'space-between'}}>
+            { id=='toilet'?(
+              <ScrollView>
+              <Text style={{color:colors.secondary,fontWeight:'bold', textAlign:'center'}}>{marker['poi']['name']}</Text>
+              <Text style={{color:colors.secondary, textAlign:'center'}}>{marker['address']['freeformAddress']}</Text>
+              <View style={{flexDirection:'row', width:Dimensions.get('window').width-10, marginHorizontal:10, marginTop:10, justifyContent:'space-between'}}>
             <Text style={{textAlign:'left', alignSelf:'flex-start', fontSize:20}}>Rating: 3.8/5</Text>
             <TouchableOpacity onPress={()=>setModalVisible(true)} style={{alignSelf:'flex-end', backgroundColor:colors.primary, borderRadius:10, padding:10, elevation:3}}><Text style={{color:colors.secondary}}>Add Review</Text></TouchableOpacity>
             </View>
@@ -175,6 +175,15 @@ const MapReviews=(marker)=>{
             nestedScrollEnabled={true}/>
             </View>
             </ScrollView>
+            ):(
+              <ScrollView>
+            <Text style={{color:colors.secondary,fontWeight:'bold', textAlign:'center'}}>{marker['poi']['name']}</Text>
+            <Text style={{color:colors.secondary, textAlign:'center'}}>{marker['address']['freeformAddress']}</Text>
+            </ScrollView>
+            )
+
+            }
+            
         </View>
     )
 }

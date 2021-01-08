@@ -107,7 +107,8 @@ const Maps=props=> {
         }}
       >
         <MapReviews
-        marker={selectedMarker}/>
+        marker={selectedMarker}
+        id={props.route.params.id}/>
       </RBSheet>
     </View>
   );
