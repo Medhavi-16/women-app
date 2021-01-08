@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View,Dimensions,FlatList } from 'react-native';
+import { StyleSheet, Text, View,Dimensions,FlatList,Modal } from 'react-native';
 import { TabView, SceneMap,TabBar } from 'react-native-tab-view';
 import { colors } from '../constants/theme';
 import PersonCard from '../components/PersonCard'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import {Ionicons} from '@expo/vector-icons';
+import { RadioButton, Checkbox} from 'react-native-paper';
 
-const myInterests=['Coding','Gardening', 'Cooking','Singing','Sketching']
+const myInterests=['Gardening', 'Cooking','Singing','Coding']
 
 const data=[
     {
         id:'1',
         name:'Medhavi Srivastava',
         img_uri:'https://cdn5.vectorstock.com/i/1000x1000/73/04/female-avatar-profile-icon-round-woman-face-vector-18307304.jpg',
-        interests:[{name:'Sports'},{name:'Sketching'},{name:'Singing'},{name:'Coding'}]
+        interests:[{name:'Sports'},{name:'Sketching'},{name:'Coding'},{name:'Singing'}]
     },
     {
         id:'2',
@@ -43,13 +44,71 @@ const renderPerson=({item})=>{
 
 const FirstRoute = () => {
     const[list,setList]=useState(data)
+    const[modalVisible,setModalVisible]=useState(false)
+    const[selectedItems,setSelectedItems]=useState([])
+    const [value, setValue] = React.useState('all');
+
+    const filterList=()=>{
+        setList([])
+        var arr=[];
+        for(var i=0;i<data.length;i++)
+        {
+            
+            for(var j=0;j<data[i].interests.length;j++)
+            {
+                var found=selectedItems.includes(data[i].interests[j].name)
+                if(found)
+                {
+                    console.log(data[i].name)
+                    arr.push(data[i])
+                    //console.log(list[0])
+                    break;
+                }
+            }
+            setList(arr)
+            setModalVisible(false)
+        }
+    }
+
+    const valueChanged=(newValue)=>{
+        setValue(newValue)
+        if(newValue=='all')
+        {
+            setList(data)
+            setModalVisible(false)
+        }
+        else if(newValue=='match')
+        {
+            setSelectedItems(myInterests)
+            filterList()
+        }
+    }
     return(
     <View style={[styles.scene, { backgroundColor: colors.white,flex: 1 }]} >
+        <Modal animationType='slide' transparent={true} visible={modalVisible}>
+            <View style={styles.centeredView}>
+                <View style={styles.modalView}>
+                <RadioButton.Group  onValueChange={newValue => valueChanged(newValue)} value={value}>
+                  <View style={{flexDirection:'column'}}>
+                    <View style={{flexDirection:'row', marginEnd:5}}>
+                        <Text style={{textAlignVertical:'center'}}>All</Text>
+                        <RadioButton value="all" color={colors.accent} uncheckedColor={colors.tertiary}/>
+                    </View>
+                    <View style={{flexDirection:'row', marginEnd:5}}>
+                        <Text style={{textAlignVertical:'center'}}>Match with you</Text>
+                        <RadioButton value="match" color={colors.accent} uncheckedColor={colors.tertiary}/>
+                    </View>
+                  </View>
+                </RadioButton.Group>
+            </View>
+            </View>
+        </Modal>
         <FlatList
         data={list}
         renderItem={renderPerson}
         keyExtractor={(item)=>item.id}/>
-        <TouchableOpacity style={{elevation:5, justifyContent:'center', alignSelf:'flex-end', backgroundColor:colors.accent, height:50, width:50, borderRadius:25, marginBottom:5, marginEnd:5}}>
+        <TouchableOpacity onPress={()=>setModalVisible(true)}
+        style={{elevation:5, justifyContent:'center', alignSelf:'flex-end', backgroundColor:colors.accent, height:50, width:50, borderRadius:25, marginBottom:5, marginEnd:5}}>
         <Ionicons name='filter-outline' size={30} color={colors.white} style={{alignSelf:'center', }} />
         </TouchableOpacity>
         </View>
@@ -106,4 +165,24 @@ const FirstRoute = () => {
     scene: {
       flex: 1,
     },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 22
+      },
+      modalView: {
+        margin: 20,
+        backgroundColor: 'white',
+        borderRadius: 20,
+        padding: 35,
+        alignItems: 'center',
+        shadowColor: '#000',
+        
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 10,
+        flexDirection: 'column',
+        width: Dimensions.get('window').width - 20
+      },
   });
