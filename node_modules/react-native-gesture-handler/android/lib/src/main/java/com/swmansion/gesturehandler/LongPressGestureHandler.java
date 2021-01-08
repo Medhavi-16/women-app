@@ -35,16 +35,12 @@ public class LongPressGestureHandler extends GestureHandler<LongPressGestureHand
       mStartX = event.getRawX();
       mStartY = event.getRawY();
       mHandler = new Handler();
-      if (mMinDurationMs > 0) {
-        mHandler.postDelayed(new Runnable() {
-          @Override
-          public void run() {
-            activate();
-          }
-        }, mMinDurationMs);
-      } else if (mMinDurationMs == 0) {
-        activate();
-      }
+      mHandler.postDelayed(new Runnable() {
+        @Override
+        public void run() {
+          activate();
+        }
+      }, mMinDurationMs);
     }
     if (event.getActionMasked() == MotionEvent.ACTION_UP) {
       if (mHandler != null) {

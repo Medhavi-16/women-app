@@ -1,6 +1,6 @@
 import React,{useState,useEffect, useRef} from 'react';
 import MapView, {Marker} from 'react-native-maps';
-import { StyleSheet, Text, View, Dimensions,Image,TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Dimensions,Image } from 'react-native';
 import * as Location from 'expo-location'
 import * as Permissions from 'expo-permissions'
 import axios from 'axios';

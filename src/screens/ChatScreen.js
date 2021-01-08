@@ -13,7 +13,7 @@ const ChatScreen=props=>{
         setMessages([
           {
             _id: 1,
-            text: 'Hola Ladies! Feel free to converse here. No one here knows or can know your identity, so don\'t be afraid of being judged.',
+            text: 'Hola Ladies! Feel free to converse here. No one here knows or can know your identity, so don\'t be afraid of being judged. But we do request you to keep this as a positive space.',
             createdAt: new Date(),
             user: {
               _id: 2,
