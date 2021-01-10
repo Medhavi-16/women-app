@@ -11,8 +11,6 @@ import CheckboxGroup from 'react-native-checkbox-group'
   
 
 const PadStats=props=>{
-
-
     const[items,setItems] = useState([{name:'Stayfree',progress:0.5,color:Colors.blue900},{name:'Whisper',progress:0.1,color:Colors.green500},
     {name:'Pari',progress:0.1,color:Colors.pink100},{name:'Sofy',progress:0.2,color:Colors.pink500},{name:'Other',progress:0.1,color:Colors.amber300}])
     const[vivsibility,setVisibilty]=useState()
@@ -43,69 +41,58 @@ const PadStats=props=>{
         </TouchableOpacity>
         </View>)}
         const valueChanged=(newValue)=>{
-            setValue(newValue)
-            
-        }
+            setValue(newValue)}
         const value2Changed=(newValue)=>{
-            setValue2(newValue)
-            
-        }
+            setValue2(newValue)}
         const onModalPress=()=>{
             setModalVisible(false);
             if(value!='Other')
             {
                 setModal2Visible(true)
-            }
-            
-        }
-
-    
-    return(
+            }}   
+        return(
         <View style={styles.container}>
             <ScrollView>
             <Modal animationType='slide' transparent={true} visible={modalVisible}>
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                     <Text style={{fontWeight:'700',textAlign:'center',marginBottom:7}}>Which sanitary napkin do you use?</Text>
-                <ScrollView  contentContainerStyle={{alignItems:'center'}}>
-                
-                <RadioButton.Group  onValueChange={newValue => valueChanged(newValue)} value={value}>
-                  <View style={{flexDirection:'column'}}>
-                    <View style={{flexDirection:'row', marginEnd:5}}>
-                        <Text style={{textAlignVertical:'center'}}>Stayfree</Text>
-                        <RadioButton value="Stayfree" color={colors.accent} uncheckedColor={colors.tertiary}/>
+                    <ScrollView  contentContainerStyle={{alignItems:'center'}}>
+                        <RadioButton.Group  onValueChange={newValue => valueChanged(newValue)} value={value}>
+                        <View style={{flexDirection:'column'}}>
+                            <View style={{flexDirection:'row', marginEnd:5}}>
+                                <Text style={{textAlignVertical:'center'}}>Stayfree</Text>
+                                <RadioButton value="Stayfree" color={colors.accent} uncheckedColor={colors.tertiary}/>
+                            </View>
+                            <View style={{flexDirection:'row', marginEnd:5}}>
+                                <Text style={{textAlignVertical:'center'}}>Whisper</Text>
+                                <RadioButton value="Whisper" color={colors.accent} uncheckedColor={colors.tertiary}/>
+                            </View>
+                            <View style={{flexDirection:'row', marginEnd:5}}>
+                                <Text style={{textAlignVertical:'center'}}>Pari</Text>
+                                <RadioButton value="Pari" color={colors.accent} uncheckedColor={colors.tertiary}/>
+                            </View>
+                            <View style={{flexDirection:'row', marginEnd:5}}>
+                                <Text style={{textAlignVertical:'center'}}>Sofy</Text>
+                                <RadioButton value="Sofy" color={colors.accent} uncheckedColor={colors.tertiary}/>
+                            </View>
+                            <View style={{flexDirection:'row', marginEnd:5}}>
+                                <Text style={{textAlignVertical:'center'}}>Other</Text>
+                                <RadioButton value="Other" color={colors.accent} uncheckedColor={colors.tertiary}/>
+                            </View>
+                            </View>
+                            </RadioButton.Group>
+                                    <TouchableOpacity onPress={()=>{onModalPress()}} style={{marginStart:10, borderColor:colors.tertiary,backgroundColor:colors.white,borderWidth:2, borderRadius:40, padding:7, elevation:3,width:120}}><Text style={{color:colors.secondary,textAlign:'center'}}>Done</Text>
+                                    </TouchableOpacity>
+                        </ScrollView>
                     </View>
-                    <View style={{flexDirection:'row', marginEnd:5}}>
-                        <Text style={{textAlignVertical:'center'}}>Whisper</Text>
-                        <RadioButton value="Whisper" color={colors.accent} uncheckedColor={colors.tertiary}/>
-                    </View>
-                    <View style={{flexDirection:'row', marginEnd:5}}>
-                        <Text style={{textAlignVertical:'center'}}>Pari</Text>
-                        <RadioButton value="Pari" color={colors.accent} uncheckedColor={colors.tertiary}/>
-                    </View>
-                    <View style={{flexDirection:'row', marginEnd:5}}>
-                        <Text style={{textAlignVertical:'center'}}>Sofy</Text>
-                        <RadioButton value="Sofy" color={colors.accent} uncheckedColor={colors.tertiary}/>
-                    </View>
-                    <View style={{flexDirection:'row', marginEnd:5}}>
-                        <Text style={{textAlignVertical:'center'}}>Other</Text>
-                        <RadioButton value="Other" color={colors.accent} uncheckedColor={colors.tertiary}/>
-                    </View>
-                    </View>
-                    </RadioButton.Group>
-                            <TouchableOpacity onPress={()=>{onModalPress()}} style={{marginStart:10, borderColor:colors.tertiary,backgroundColor:colors.white,borderWidth:2, borderRadius:40, padding:7, elevation:3,width:120}}><Text style={{color:colors.secondary,textAlign:'center'}}>Done</Text>
-                            </TouchableOpacity>
-                </ScrollView>
-            </View>
-        </View>
-    </Modal>
-    <Modal animationType='slide' transparent={true} visible={modal2Visible}>
+                </View>
+            </Modal>
+        <Modal animationType='slide' transparent={true} visible={modal2Visible}>
             <View style={styles.centeredView}>
                 <View style={styles.modalView}>
                 <Text style={{fontWeight:'700',textAlign:'center',marginBottom:7}}>{`What do you like best about ${value}`}?</Text>
-
                 <ScrollView  contentContainerStyle={{alignItems:'center'}}>
-                
                 <RadioButton.Group  onValueChange={newValue => value2Changed(newValue)} value={value2}>
                   <View style={{flexDirection:'column'}}>
                     <View style={{flexDirection:'row', marginEnd:5}}>
