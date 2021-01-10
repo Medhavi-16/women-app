@@ -48,7 +48,6 @@ const FirstRoute = () => {
     const[modalVisible,setModalVisible]=useState(false)
     //const[selectedItems,setSelectedItems]=useState([])
     const [value, setValue] = React.useState('all');
-    const categories=[{id:'Coding',status: false},{id:'Cooking',status:false},{id:'Gardening',status:false},{id:'Biking',status: false},{id:'Blogging',status:false},{id:'Singing',status: false},{id:'Sketching',status: false},{id:'DIY',status:false},{id:'Travel',status:false},{id:'Sports',status:false}]
     const selectedItems=useRef()
 
 
@@ -120,70 +119,56 @@ const FirstRoute = () => {
                         <View style={{flexDirection:'column'}}>
                         <Text style={{textAlignVertical:'center'}}>Select Categories</Text>
                         {value=='categories'?(
-                            // <View>    
-                            //     <Checkbox.Item label="Coding" status={coding?'checked':'unchecked'} onPress={()=>{setCoding(!coding); editList(coding,'Coding')}}/>
-                            //     <Checkbox.Item label="Cooking" status={cooking?'checked':'unchecked'} onPress={()=>{setCooking(!cooking); editList(cooking,'Cooking')}}/>
-                            //     <Checkbox.Item label="Biking" status={biking?'checked':'unchecked'} onPress={()=>{setBiking(!biking); editList(biking,'Biking')}}/>
-                            //     <Checkbox.Item label="Blogging" status={blogging?'checked':'unchecked'} onPress={()=>{setBlogging(!blogging); editList(blogging,'Blogging')}} />
-                            //     <Checkbox.Item label="Gardening" status={gardening?'checked':'unchecked'} onPress={()=>{setGardening(!gardening); editList(gardening,'Gardening')}}/>
-                            //     <Checkbox.Item label="Singing" status={singing?'checked':'unchecked'} onPress={()=>{setSinging(!singing); editList(singing,'Singing')}}/>
-                            //     <Checkbox.Item label="Sketching" status={sketching?'checked':'unchecked'} onPress={()=>{setSketching(!sketching); editList(sketching,'Sketching')}}/>
-                            //     <Checkbox.Item label="Sports" status={sports?'checked':'unchecked'} onPress={()=>{setSports(!sports); editList(sports,'Sports')}}/>
-                            //     <Checkbox.Item label="DIY" status={diy?'checked':'unchecked'} onPress={()=>{setDiy(!diy); editList(diy,'DIY')}}/>
-                            //     <Checkbox.Item label="Travel" status={travel?'checked':'unchecked'} onPress={()=>{setTravel(!travel); editList(travel,'Travel')}}/>
-                            //     <TouchableOpacity onPress={()=>onDone()} style={{marginStart:10, borderColor:colors.tertiary,backgroundColor:colors.white,borderWidth:2, borderRadius:40, padding:7, elevation:3,width:120}}><Text style={{color:colors.secondary,textAlign:'center'}}>Done</Text></TouchableOpacity>
-                            // </View>
-
                             <View>
                             <CheckboxGroup
-              callback={(selected) => { console.log(selected); selectedItems.current=selected }}
-              iconColor={"#00a2dd"}
-              iconSize={30}
-              checkedIcon="ios-checkbox-outline"
-              uncheckedIcon="ios-square-outline"
-              iconColor={colors.accent}
-              checkboxes={[
-                {
-                  label: "Coding", // label for checkbox item
-                  value: "Coding", // selected value for item, if selected, what value should be sent?
-                  selected: true // if the item is selected by default or not.
-                },
-                {
-                    label: "Cooking", // label for checkbox item
-                    value: "Cooking",
-                },
-                {
-                    label: "Sketching", // label for checkbox item
-                    value: "Sketching",
-                },
-                {
-                    label: "Travel", // label for checkbox item
-                    value: "Travel",
-                },
-                {
-                    label: "Blogging", // label for checkbox item
-                    value: "Blogging",
-                },
-                {
-                    label: "Singing", // label for checkbox item
-                    value: "Singing",
-                },
-                {
-                    label: "Gardening", // label for checkbox item
-                    value: "Gardening",
-                },
-              ]}
-              labelStyle={{
-                color: '#333'
-              }}
-              rowStyle={{
-                flexDirection: 'row'
-              }}
-              rowDirection={"column"}
-            />
-            <TouchableOpacity onPress={()=>onDone()} style={{marginStart:10, borderColor:colors.tertiary,backgroundColor:colors.white,borderWidth:2, borderRadius:40, padding:7, elevation:3,width:120}}><Text style={{color:colors.secondary,textAlign:'center'}}>Done</Text></TouchableOpacity>
-                             </View>
-                        ):(null)}
+                              callback={(selected) => { console.log(selected); selectedItems.current=selected }}
+                              iconColor={"#00a2dd"}
+                              iconSize={30}
+                              checkedIcon="ios-checkbox-outline"
+                              uncheckedIcon="ios-square-outline"
+                              iconColor={colors.accent}
+                              checkboxes={[
+                                {
+                                  label: "Coding", // label for checkbox item
+                                  value: "Coding", // selected value for item, if selected, what value should be sent?
+                                  selected: true // if the item is selected by default or not.
+                                },
+                                {
+                                    label: "Cooking", // label for checkbox item
+                                    value: "Cooking",
+                                },
+                                {
+                                    label: "Sketching", // label for checkbox item
+                                    value: "Sketching",
+                                },
+                                {
+                                    label: "Travel", // label for checkbox item
+                                    value: "Travel",
+                                },
+                                {
+                                    label: "Blogging", // label for checkbox item
+                                    value: "Blogging",
+                                },
+                                {
+                                    label: "Singing", // label for checkbox item
+                                    value: "Singing",
+                                },
+                                {
+                                    label: "Gardening", // label for checkbox item
+                                    value: "Gardening",
+                                },
+                              ]}
+                              labelStyle={{
+                                color: '#333'
+                              }}
+                              rowStyle={{
+                                flexDirection: 'row'
+                              }}
+                              rowDirection={"column"}
+                            />
+                            <TouchableOpacity onPress={()=>onDone()} style={{marginStart:10, borderColor:colors.tertiary,backgroundColor:colors.white,borderWidth:2, borderRadius:40, padding:7, elevation:3,width:120}}><Text style={{color:colors.secondary,textAlign:'center'}}>Done</Text></TouchableOpacity>
+                                            </View>
+                                        ):(null)}
                         
                         </View>
                     </View>
@@ -238,7 +223,7 @@ const FirstRoute = () => {
         indicatorContainerStyle={{height:40,backgroundColor:colors.secondary}} 
         renderLabel={({ route,focused }) => (
             focused==true?(
-<Text style={{color:colors.black, fontWeight:'bold',  padding: 5 }}>
+            <Text style={{color:colors.black, fontWeight:'bold',  padding: 5 }}>
                 {route.title}
             </Text>
             ):
