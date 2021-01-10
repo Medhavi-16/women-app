@@ -4,6 +4,8 @@ const Stack = createStackNavigator();
 import HealthScreen from '../screens/HealthScreen'
 import Diseases from '../screens/Diseases'
 import BreastCancer from '../screens/BreastCancer'
+import PeriodsGuide from '../screens/PeriodsGuide'
+import PadStats from '../screens/PadStats'
 
 const HealthStackNavigator = () => {
     return (
@@ -17,9 +19,20 @@ const HealthStackNavigator = () => {
           name='Diseases'
           component={Diseases}
           options={{headerShown:false}}/>
+
           <Stack.Screen
           name='BreastCancer'
           component={BreastCancer}
+          options={{headerShown:false}}/>
+
+          <Stack.Screen
+          name='PeriodsGuide'
+          component={PeriodsGuide}
+          options={{headerShown:false}}/>
+
+          <Stack.Screen
+          name='PadStats'
+          component={PadStats}
           options={{headerShown:false}}/>
   
         
