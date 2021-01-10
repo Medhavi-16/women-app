@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import { StyleSheet, Text, View,Dimensions,FlatList,Modal,ScrollView,TouchableOpacity } from 'react-native';
 import { TabView, SceneMap,TabBar } from 'react-native-tab-view';
 import { colors } from '../constants/theme';
 import PersonCard from '../components/PersonCard'
 import {Ionicons} from '@expo/vector-icons';
 import { RadioButton, Checkbox} from 'react-native-paper';
+import CheckboxGroup from 'react-native-checkbox-group'
 
 const myInterests=['Gardening', 'Cooking','Singing','Coding']
 
@@ -45,30 +46,21 @@ const renderPerson=({item})=>{
 const FirstRoute = () => {
     const[list,setList]=useState(data)
     const[modalVisible,setModalVisible]=useState(false)
-    const[selectedItems,setSelectedItems]=useState([])
+    //const[selectedItems,setSelectedItems]=useState([])
     const [value, setValue] = React.useState('all');
     const categories=[{id:'Coding',status: false},{id:'Cooking',status:false},{id:'Gardening',status:false},{id:'Biking',status: false},{id:'Blogging',status:false},{id:'Singing',status: false},{id:'Sketching',status: false},{id:'DIY',status:false},{id:'Travel',status:false},{id:'Sports',status:false}]
-    const [coding,setCoding]=useState(false)
-    const [cooking,setCooking]=useState(false)
-    const [gardening,setGardening]=useState(false)
-    const [biking,setBiking]=useState(false)
-    const [blogging,setBlogging]=useState(false)
-    const [diy,setDiy]=useState(false)
-    const [travel,setTravel]=useState(false)
-    const [singing,setSinging]=useState(false)
-    const [sports,setSports]=useState(false)
-    const [sketching,setSketching]=useState(false)
+    const selectedItems=useRef()
 
 
     const filterList=()=>{
-        setList([])
+        //setList([])
         var arr=[];
         for(var i=0;i<data.length;i++)
         {
             
             for(var j=0;j<data[i].interests.length;j++)
             {
-                var found=selectedItems.includes(data[i].interests[j].name)
+                var found=selectedItems.current.includes(data[i].interests[j].name)
                 if(found)
                 {
                     console.log(data[i].name)
@@ -77,8 +69,9 @@ const FirstRoute = () => {
                     break;
                 }
             }
-            setList(arr)
             setModalVisible(false)
+            setList(arr)
+            
         }
     }
 
@@ -91,12 +84,12 @@ const FirstRoute = () => {
         }
         else if(newValue=='match')
         {
-            setSelectedItems(myInterests)
+            selectedItems.current=myInterests
             filterList()
         }
         else if(newValue=='categories')
         {
-            setSelectedItems([])
+            selectedItems.current=[]
         }
         
     }
@@ -105,21 +98,7 @@ const FirstRoute = () => {
         setModalVisible(false)
         filterList()
     }
-
-    const editList=(status,item)=>{
-        if(status){selectedItems.push(item)}
-        else{
-            if(selectedItems.includes(item))
-            {
-                selectedItems.splice(item,1)
-            }
-        }
-
-    }
-
-    
-
-    
+  
     return(
     <View style={[styles.scene, { backgroundColor: colors.white,flex: 1 }]} >
         <Modal animationType='slide' transparent={true} visible={modalVisible}>
@@ -141,19 +120,69 @@ const FirstRoute = () => {
                         <View style={{flexDirection:'column'}}>
                         <Text style={{textAlignVertical:'center'}}>Select Categories</Text>
                         {value=='categories'?(
-                            <View>    
-                                <Checkbox.Item label="Coding" status={coding?'checked':'unchecked'} onPress={()=>{setCoding(!coding); editList(coding,'Coding')}}/>
-                                <Checkbox.Item label="Cooking" status={cooking?'checked':'unchecked'} onPress={()=>{setCooking(!cooking); editList(cooking,'Cooking')}}/>
-                                <Checkbox.Item label="Biking" status={biking?'checked':'unchecked'} onPress={()=>{setBiking(!biking); editList(biking,'Biking')}}/>
-                                <Checkbox.Item label="Blogging" status={blogging?'checked':'unchecked'} onPress={()=>{setBlogging(!blogging); editList(blogging,'Blogging')}} />
-                                <Checkbox.Item label="Gardening" status={gardening?'checked':'unchecked'} onPress={()=>{setGardening(!gardening); editList(gardening,'Gardening')}}/>
-                                <Checkbox.Item label="Singing" status={singing?'checked':'unchecked'} onPress={()=>{setSinging(!singing); editList(singing,'Singing')}}/>
-                                <Checkbox.Item label="Sketching" status={sketching?'checked':'unchecked'} onPress={()=>{setSketching(!sketching); editList(sketching,'Sketching')}}/>
-                                <Checkbox.Item label="Sports" status={sports?'checked':'unchecked'} onPress={()=>{setSports(!sports); editList(sports,'Sports')}}/>
-                                <Checkbox.Item label="DIY" status={diy?'checked':'unchecked'} onPress={()=>{setDiy(!diy); editList(diy,'DIY')}}/>
-                                <Checkbox.Item label="Travel" status={travel?'checked':'unchecked'} onPress={()=>{setTravel(!travel); editList(travel,'Travel')}}/>
-                                <TouchableOpacity onPress={()=>onDone()} style={{marginStart:10, borderColor:colors.tertiary,backgroundColor:colors.white,borderWidth:2, borderRadius:40, padding:7, elevation:3,width:120}}><Text style={{color:colors.secondary,textAlign:'center'}}>Done</Text></TouchableOpacity>
-                            </View>
+                            // <View>    
+                            //     <Checkbox.Item label="Coding" status={coding?'checked':'unchecked'} onPress={()=>{setCoding(!coding); editList(coding,'Coding')}}/>
+                            //     <Checkbox.Item label="Cooking" status={cooking?'checked':'unchecked'} onPress={()=>{setCooking(!cooking); editList(cooking,'Cooking')}}/>
+                            //     <Checkbox.Item label="Biking" status={biking?'checked':'unchecked'} onPress={()=>{setBiking(!biking); editList(biking,'Biking')}}/>
+                            //     <Checkbox.Item label="Blogging" status={blogging?'checked':'unchecked'} onPress={()=>{setBlogging(!blogging); editList(blogging,'Blogging')}} />
+                            //     <Checkbox.Item label="Gardening" status={gardening?'checked':'unchecked'} onPress={()=>{setGardening(!gardening); editList(gardening,'Gardening')}}/>
+                            //     <Checkbox.Item label="Singing" status={singing?'checked':'unchecked'} onPress={()=>{setSinging(!singing); editList(singing,'Singing')}}/>
+                            //     <Checkbox.Item label="Sketching" status={sketching?'checked':'unchecked'} onPress={()=>{setSketching(!sketching); editList(sketching,'Sketching')}}/>
+                            //     <Checkbox.Item label="Sports" status={sports?'checked':'unchecked'} onPress={()=>{setSports(!sports); editList(sports,'Sports')}}/>
+                            //     <Checkbox.Item label="DIY" status={diy?'checked':'unchecked'} onPress={()=>{setDiy(!diy); editList(diy,'DIY')}}/>
+                            //     <Checkbox.Item label="Travel" status={travel?'checked':'unchecked'} onPress={()=>{setTravel(!travel); editList(travel,'Travel')}}/>
+                            //     <TouchableOpacity onPress={()=>onDone()} style={{marginStart:10, borderColor:colors.tertiary,backgroundColor:colors.white,borderWidth:2, borderRadius:40, padding:7, elevation:3,width:120}}><Text style={{color:colors.secondary,textAlign:'center'}}>Done</Text></TouchableOpacity>
+                            // </View>
+
+                            <View>
+                            <CheckboxGroup
+              callback={(selected) => { console.log(selected); selectedItems.current=selected }}
+              iconColor={"#00a2dd"}
+              iconSize={30}
+              checkedIcon="ios-checkbox-outline"
+              uncheckedIcon="ios-square-outline"
+              iconColor={colors.accent}
+              checkboxes={[
+                {
+                  label: "Coding", // label for checkbox item
+                  value: "Coding", // selected value for item, if selected, what value should be sent?
+                  selected: true // if the item is selected by default or not.
+                },
+                {
+                    label: "Cooking", // label for checkbox item
+                    value: "Cooking",
+                },
+                {
+                    label: "Sketching", // label for checkbox item
+                    value: "Sketching",
+                },
+                {
+                    label: "Travel", // label for checkbox item
+                    value: "Travel",
+                },
+                {
+                    label: "Blogging", // label for checkbox item
+                    value: "Blogging",
+                },
+                {
+                    label: "Singing", // label for checkbox item
+                    value: "Singing",
+                },
+                {
+                    label: "Gardening", // label for checkbox item
+                    value: "Gardening",
+                },
+              ]}
+              labelStyle={{
+                color: '#333'
+              }}
+              rowStyle={{
+                flexDirection: 'row'
+              }}
+              rowDirection={"column"}
+            />
+            <TouchableOpacity onPress={()=>onDone()} style={{marginStart:10, borderColor:colors.tertiary,backgroundColor:colors.white,borderWidth:2, borderRadius:40, padding:7, elevation:3,width:120}}><Text style={{color:colors.secondary,textAlign:'center'}}>Done</Text></TouchableOpacity>
+                             </View>
                         ):(null)}
                         
                         </View>
