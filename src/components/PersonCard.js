@@ -2,12 +2,14 @@ import React from 'react';
 import { StyleSheet, Text, View,Dimensions,TouchableOpacity,Image } from 'react-native';
 import {colors} from '../constants/theme'
 import BrickList from 'react-native-masonry-brick-list';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 
 
 const PersonCard=({item})=>{
-
+  const navigation = useNavigation();
     const getColor=()=>{
         return (
             'hsl(' +
@@ -20,11 +22,21 @@ const PersonCard=({item})=>{
           );
     }
     return(
-        <TouchableOpacity style={[styles.container,{backgroundColor:getColor(), paddingHorizontal:5}]}>
+        <TouchableOpacity style={[styles.container,{backgroundColor:getColor(), paddingHorizontal:5}]} onPress={() => {
+          navigation.navigate('PersonalChat', {
+            item: item,
+          });
+        }}>
             <View style={styles.profile}>
+              <TouchableOpacity onPress={() => {
+          navigation.navigate('Profile', {
+            item: item,
+          });
+        }}>
             <Image
             source={{uri:item.img_uri.toString()}}
             style={styles.img}/>
+            </TouchableOpacity>
             <Text style={{marginStart:5}}>{item.name}</Text>
             </View>
             <BrickList

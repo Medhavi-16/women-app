@@ -15,25 +15,34 @@ const data=[
         id:'1',
         name:'Medhavi Srivastava',
         img_uri:'https://cdn5.vectorstock.com/i/1000x1000/73/04/female-avatar-profile-icon-round-woman-face-vector-18307304.jpg',
-        interests:[{name:'Sports'},{name:'Sketching'},{name:'Coding'},{name:'Singing'}]
+        interests:[{name:'Sports'},{name:'Sketching'},{name:'Coding'},{name:'Singing'}],
+        location:{city:'Allahabad', country:'India'},
+        socialMedia:{insta:'medhavi_17', linked:null, git:'Medhavi-16', twitter:'MedhaviSrivas11',email:'medhavi.srivastava16@gmail.com'}
     },
     {
         id:'2',
         name:'Utkarsha Srivastava',
         img_uri:'https://cdn1.vectorstock.com/i/1000x1000/73/15/female-avatar-profile-icon-round-woman-face-vector-18307315.jpg',
-        interests:[{name:'Cooking'},{name:'Gardening'},{name:'Singing'},{name:'Coding'}]
+        interests:[{name:'Cooking'},{name:'Gardening'},{name:'Singing'},{name:'Coding'}],
+        location:{city:'Allahabad', country:'India'},
+        socialMedia:{insta:'medhavi_17', linked:null, git:'Medhavi-16', twitter:'MedhaviSrivas11',email:'ashutosh.kumars2617@gmail.com'}
+
     },
     {
         id:'3',
         name:'Seema Srivastava',
         img_uri:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbCekagxHdpZ9bkHrz0nN0tO_f4r-pzU1S-Q&usqp=CAU',
-        interests:[{name:'DIY'},{name:'Biking'},{name:'Blogging'}]
+        interests:[{name:'DIY'},{name:'Biking'},{name:'Blogging'}],
+        location:{city:'Allahabad', country:'India'},
+        socialMedia:{insta:'medhavi_17', linked:null, git:'Medhavi-16', twitter:'MedhaviSrivas11',email:'medhavi.srivastava16@gmail.com'}
     },
     {
         id:'4',
         name:'Gargi Srivastava',
         img_uri:'https://cdn3.vectorstock.com/i/1000x1000/72/82/female-avatar-profile-icon-round-woman-face-vector-18307282.jpg',
-        interests:[{name:'DIY'},{name:'Biking'},{name:'Travel'},{name:'Blogging'}]
+        interests:[{name:'DIY'},{name:'Biking'},{name:'Travel'},{name:'Blogging'}],
+        location:{city:'Allahabad', country:'India'},
+        socialMedia:{insta:'medhavi_17', linked:null, git:'Medhavi-16', twitter:'MedhaviSrivas11',email:'medhavi.srivastava16@gmail.com'}
     },
 
 ]
@@ -43,7 +52,7 @@ const renderPerson=({item})=>{
             <PersonCard item={item}/>)
 }
 
-const FirstRoute = () => {
+const FirstRoute = props => {
     const[list,setList]=useState(data)
     const[modalVisible,setModalVisible]=useState(false)
     //const[selectedItems,setSelectedItems]=useState([])
@@ -190,9 +199,14 @@ const FirstRoute = () => {
     )
     };
    
-  const SecondRoute = () => (
-    <View style={[styles.scene, { backgroundColor: colors.white, flex:1 }]} />
-  );
+  const SecondRoute = () => {
+
+    return(
+      <View style={[styles.scene, { backgroundColor: colors.white,flex: 1 }]} >
+
+      </View>
+    )
+  };
    
   const initialLayout = { width: Dimensions.get('window').width };
   const tabBar={activeColor:colors.accent}
