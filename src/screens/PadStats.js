@@ -5,6 +5,7 @@ import Carousel from 'react-native-snap-carousel';
 import { colors } from '../constants/theme';
 import {Ionicons} from '@expo/vector-icons';
 import { ProgressBar, Colors, RadioButton } from 'react-native-paper';
+import SnackBar from 'react-native-snackbar-component'
 import CheckboxGroup from 'react-native-checkbox-group'
 
 
@@ -13,7 +14,8 @@ import CheckboxGroup from 'react-native-checkbox-group'
 const PadStats=props=>{
     const[items,setItems] = useState([{name:'Stayfree',progress:0.5,color:Colors.blue900},{name:'Whisper',progress:0.1,color:Colors.green500},
     {name:'Pari',progress:0.1,color:Colors.pink100},{name:'Sofy',progress:0.2,color:Colors.pink500},{name:'Other',progress:0.1,color:Colors.amber300}])
-    const[vivsibility,setVisibilty]=useState()
+    const[visibility,setVisibilty]=useState()
+    const [sbModalVisible,setSbModalVisible]=useState(false)
     const[brand,setBrand]=useState(null)
     const brandColour=useRef(null);
     const[modalVisible,setModalVisible]=useState(false)
@@ -117,12 +119,14 @@ const PadStats=props=>{
                     </View>
                     </View>
                     </RadioButton.Group>
-                            <TouchableOpacity onPress={()=>setModal2Visible(false)} style={{marginStart:10, borderColor:colors.tertiary,backgroundColor:colors.white,borderWidth:2, borderRadius:40, padding:7, elevation:3,width:120}}><Text style={{color:colors.secondary,textAlign:'center'}}>Done</Text>
+                            <TouchableOpacity onPress={()=>{setModal2Visible(false); setSbModalVisible(true)}} style={{marginStart:10, borderColor:colors.tertiary,backgroundColor:colors.white,borderWidth:2, borderRadius:40, padding:7, elevation:3,width:120}}><Text style={{color:colors.secondary,textAlign:'center'}}>Done</Text>
                             </TouchableOpacity>
                 </ScrollView>
             </View>
         </View>
     </Modal>
+    <SnackBar visible={sbModalVisible} textMessage="You just helped your sisters! Thank You!" autoHidingTime={5000}  position='top' containerStyle={{paddingVertical:20}}/>
+
             <Text style={{marginTop:50,marginHorizontal:10, textAlign:'center', fontWeight:'700', fontSize:34}}>Sanitary Napkins Statistics in India</Text>
             <FlatList
             data={items}
