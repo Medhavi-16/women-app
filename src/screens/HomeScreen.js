@@ -17,6 +17,8 @@ const carousalItems=[
 
 const HomeScreen=props=>{
     const [playlist, setPlaylist] = useState([]);
+    const myInterests=[{name:'Gardening'}, {name:'Cooking'},{name:'Singing'},{name:'Coding'}]
+    const socialMedia={insta:'medhavi_17', linked:null, git:'Medhavi-16', twitter:'MedhaviSrivas11',email:'medhavi.srivastava16@gmail.com'}
 
     useEffect(() => {
         axios('https://accounts.spotify.com/api/token', {
@@ -119,9 +121,9 @@ const HomeScreen=props=>{
             <Text style={styles.nameText}>Clara Dev</Text>
           </View>
           <TouchableOpacity
-            // onPress={() => {
-            //   props.navigation.navigate('Profile');
-            // }}
+            onPress={() => {
+              props.navigation.navigate('Profile',{name:'Medhavi', interests:myInterests, socialMedia:socialMedia});
+            }}
           >
             <View style={styles.avatar}>
               <Image

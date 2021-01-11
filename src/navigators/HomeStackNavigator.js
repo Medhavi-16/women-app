@@ -5,6 +5,7 @@ import HomeScreen from '../screens/HomeScreen'
 import Shows from '../screens/Shows'
 import Episodes from '../screens/Episodes'
 import Maps from '../screens/Maps'
+import Profile from '../screens/Profile'
 
 
 const HomeStackNavigator = () => {
@@ -28,6 +29,11 @@ const HomeStackNavigator = () => {
         <Stack.Screen
           name='Maps'
           component={Maps}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name='Profile'
+          component={Profile}
           options={{ headerShown: false }}
         />
   
