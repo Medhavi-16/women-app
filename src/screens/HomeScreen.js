@@ -119,9 +119,9 @@ const HomeScreen=props=>{
             <Text style={styles.nameText}>Clara Dev</Text>
           </View>
           <TouchableOpacity
-            // onPress={() => {
-            //   props.navigation.navigate('Profile');
-            // }}
+            onPress={() => {
+              props.navigation.navigate('Profile');
+            }}
           >
             <View style={styles.avatar}>
               <Image
