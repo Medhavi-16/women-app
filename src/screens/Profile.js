@@ -29,7 +29,11 @@ const Profile=props=>{
                 source={require('../../assets/avatar.png')}
                 style={{width: 100, height: 100, alignSelf:'center', marginTop:10 }}
               />
-            <Text style={{textAlign:'center', fontSize:20, fontWeight:'bold', marginBottom:20}} >{props.route.params.name}</Text>
+            <Text style={{textAlign:'center', fontSize:20, fontWeight:'bold', marginBottom:10}} >{props.route.params.name}</Text>
+            <View style={{justifyContent:'flex-start', flexDirection:'row',marginStart:10, marginBottom:20}}>
+                <Ionicons name='location-outline' size={20} color={colors.black}/>
+                <Text style={{fontWeight:'700'}}>{props.route.params.location.city}, {props.route.params.location.country}</Text>
+            </View>
             <Text style={{fontSize:15, fontWeight:'bold', marginBottom:10,marginStart:10}} >Interests</Text>
             <BrickList
               data={props.route.params.interests}
