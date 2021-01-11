@@ -9,14 +9,14 @@ import { Colors} from 'react-native-paper';
 import BrickList from 'react-native-masonry-brick-list';
 
 
-const myInterests=[{name:'Gardening'}, {name:'Cooking'},{name:'Singing'},{name:'Coding'}]
+const socialMedia={}
 
 const Profile=props=>{
-    const[insta,setInsta]=useState('medhavi_17')
-    const[linked,setLinked]=useState(null)
-    const[twitter,setTwitter]=useState('MedhaviSrivas11')
-    const[email,setEmail]=useState('medhavi.srivastava16@gmail.com')
-
+    const[insta,setInsta]=useState(props.route.params.socialMedia.insta)
+    const[linked,setLinked]=useState(props.route.params.socialMedia.linked)
+    const[twitter,setTwitter]=useState(props.route.params.socialMedia.twitter)
+    const[email,setEmail]=useState(props.route.params.socialMedia.email)
+    const[git,setGithub]=useState(props.route.params.socialMedia.git)
 
     return(
         <View style={styles.container}>
@@ -29,10 +29,10 @@ const Profile=props=>{
                 source={require('../../assets/avatar.png')}
                 style={{width: 100, height: 100, alignSelf:'center', marginTop:10 }}
               />
-            <Text style={{textAlign:'center', fontSize:20, fontWeight:'bold', marginBottom:20}} >Clara Dev</Text>
+            <Text style={{textAlign:'center', fontSize:20, fontWeight:'bold', marginBottom:20}} >{props.route.params.name}</Text>
             <Text style={{fontSize:15, fontWeight:'bold', marginBottom:10,marginStart:10}} >Interests</Text>
             <BrickList
-              data={myInterests}
+              data={props.route.params.interests}
               renderItem={prop => {
                 return (
                     <View
@@ -69,6 +69,11 @@ const Profile=props=>{
             {email && <View style={styles.links}>
                 <Ionicons name='mail' size={30} color={colors.secondary}/>
                 <Text style={styles.account} onPress={ ()=> Linking.openURL(`mailto:${email}`) }>{email}</Text>
+            </View>
+            }
+            {git && <View style={styles.links}>
+                <Ionicons name='logo-github' size={30} color={colors.secondary}/>
+                <Text style={styles.account} onPress={ ()=> Linking.openURL(`https://github.com/${git}`) }>{git}</Text>
             </View>
             }
             
