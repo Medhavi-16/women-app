@@ -23,14 +23,20 @@ const PersonCard=({item})=>{
     }
     return(
         <TouchableOpacity style={[styles.container,{backgroundColor:getColor(), paddingHorizontal:5}]} onPress={() => {
-          navigation.navigate('Profile', {
+          navigation.navigate('PersonalChat', {
             item: item,
           });
         }}>
             <View style={styles.profile}>
+              <TouchableOpacity onPress={() => {
+          navigation.navigate('Profile', {
+            item: item,
+          });
+        }}>
             <Image
             source={{uri:item.img_uri.toString()}}
             style={styles.img}/>
+            </TouchableOpacity>
             <Text style={{marginStart:5}}>{item.name}</Text>
             </View>
             <BrickList
