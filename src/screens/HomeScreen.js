@@ -19,6 +19,7 @@ const HomeScreen=props=>{
     const [playlist, setPlaylist] = useState([]);
     const myInterests=[{name:'Gardening'}, {name:'Cooking'},{name:'Singing'},{name:'Coding'}]
     const socialMedia={insta:'medhavi_17', linked:null, git:'Medhavi-16', twitter:'MedhaviSrivas11',email:'medhavi.srivastava16@gmail.com'}
+    const location={country:'India',city:'Lucknow'}
 
     useEffect(() => {
         axios('https://accounts.spotify.com/api/token', {
@@ -122,7 +123,7 @@ const HomeScreen=props=>{
           </View>
           <TouchableOpacity
             onPress={() => {
-              props.navigation.navigate('Profile',{name:'Medhavi', interests:myInterests, socialMedia:socialMedia});
+              props.navigation.navigate('Profile',{name:'Medhavi', interests:myInterests, socialMedia:socialMedia, location:location});
             }}
           >
             <View style={styles.avatar}>
