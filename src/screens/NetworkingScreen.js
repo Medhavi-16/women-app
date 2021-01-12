@@ -61,7 +61,7 @@ const postings=[
   {
       id:'2',
       name:'Utkarsha Srivastava',
-      author_id:1,
+      author_id:2,
       img_uri:'https://cdn1.vectorstock.com/i/1000x1000/73/15/female-avatar-profile-icon-round-woman-face-vector-18307315.jpg',
       interests:[{name:'Java'},{name:'Software Engineering'},{name:'SDE'},{name:'Internship'}],
       title:'ABC company is looking for a Java Developer'
@@ -224,9 +224,18 @@ const FirstRoute = props => {
   const SecondRoute = () => {
     const renderJobs=({item})=>{
       return(
-              <JobsCard item={item}/>)
+              <JobsCard item={item} user={findUser(item.author_id)}/>)
     }
     const[modalVisible,setModalVisible]=useState(false)
+    const findUser=(id)=>{
+      for(var i=0;i<data.length;i++)
+      {
+        if(data[i].id==id)
+        {
+          return data[i]
+        }
+      }
+    }
 
     return(
       <View style={[styles.scene, { backgroundColor: colors.white,flex: 1 }]} >

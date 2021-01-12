@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 
 
 
-const JobsCard=({item})=>{
+const JobsCard=({item, user})=>{
   const navigation = useNavigation();
     const getColor=()=>{
         return (
@@ -22,9 +22,17 @@ const JobsCard=({item})=>{
           );
     }
     return(
-        <TouchableOpacity style={[styles.container,{backgroundColor:getColor(), paddingHorizontal:5}]}>
+        <TouchableOpacity style={[styles.container,{backgroundColor:getColor(), paddingHorizontal:5}]} onPress={() => {
+            navigation.navigate('PersonalChat', {
+              item: user,
+            });
+          }}>
             <View style={styles.profile}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => {
+          navigation.navigate('Profile', {
+            item: user,
+          });
+        }}>
             <Image
             source={{uri:item.img_uri.toString()}}
             style={styles.img}/>
