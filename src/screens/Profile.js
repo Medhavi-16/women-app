@@ -26,8 +26,8 @@ const Profile=props=>{
         colors={[Colors.amber100, Colors.amber300, Colors.amber500]}
         style={styles.button}>
             <Image
-                source={require('../../assets/avatar.png')}
-                style={{width: 100, height: 100, alignSelf:'center', marginTop:10 }}
+                source={{uri:props.route.params.item.img_uri.toString()}}
+                style={{width: 100, height: 100, alignSelf:'center', marginTop:10, borderRadius:50 }}
               />
             <Text style={{textAlign:'center', fontSize:20, fontWeight:'bold', marginBottom:10}} >{props.route.params.item.name}</Text>
             <View style={{justifyContent:'flex-start', flexDirection:'row',marginStart:10, marginBottom:20}}>
