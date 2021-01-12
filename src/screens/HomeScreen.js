@@ -20,7 +20,7 @@ const HomeScreen=props=>{
     const myInterests=[{name:'Gardening'}, {name:'Cooking'},{name:'Singing'},{name:'Coding'}]
     const socialMedia={insta:'medhavi_17', linked:null, git:'Medhavi-16', twitter:'MedhaviSrivas11',email:'medhavi.srivastava16@gmail.com'}
     const location={country:'India',city:'Lucknow'}
-    const item={name:'Medhavi', interests:myInterests,socialMedia:socialMedia, location:location}
+    const item={name:'Clara Dev', interests:myInterests,socialMedia:socialMedia, location:location,img_uri:'https://cdn5.vectorstock.com/i/1000x1000/73/04/female-avatar-profile-icon-round-woman-face-vector-18307304.jpg'}
 
     useEffect(() => {
         axios('https://accounts.spotify.com/api/token', {
@@ -129,8 +129,8 @@ const HomeScreen=props=>{
           >
             <View style={styles.avatar}>
               <Image
-                source={require('../../assets/avatar.png')}
-                style={{ width: 60, height: 60 }}
+                source={{uri:item.img_uri.toString()}}
+                style={{ width: 60, height: 60, borderRadius:30 }}
               />
             </View>
           </TouchableOpacity>

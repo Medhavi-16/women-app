@@ -3,6 +3,7 @@ import { StyleSheet, Text, View,Dimensions,FlatList,Modal,ScrollView,TouchableOp
 import { TabView, SceneMap,TabBar } from 'react-native-tab-view';
 import { colors } from '../constants/theme';
 import PersonCard from '../components/PersonCard'
+import JobsCard from '../components/JobsCard'
 import {Ionicons} from '@expo/vector-icons';
 import { RadioButton, Checkbox} from 'react-native-paper';
 import CheckboxGroup from 'react-native-checkbox-group'
@@ -44,13 +45,31 @@ const data=[
         location:{city:'Allahabad', country:'India'},
         socialMedia:{insta:'medhavi_17', linked:null, git:'Medhavi-16', twitter:'MedhaviSrivas11',email:'medhavi.srivastava16@gmail.com'}
     },
-
 ]
 
-const renderPerson=({item})=>{
-    return(
-            <PersonCard item={item}/>)
-}
+
+
+const postings=[
+  {
+      id:'1',
+      name:'Medhavi Srivastava',
+      author_id:1,
+      img_uri:'https://cdn5.vectorstock.com/i/1000x1000/73/04/female-avatar-profile-icon-round-woman-face-vector-18307304.jpg',
+      interests:[{name:'Software Development'},{name:'Coding'},{name:'UI'}],
+      title: 'Need a person to collaborate for a hackathon'
+  },
+  {
+      id:'2',
+      name:'Utkarsha Srivastava',
+      author_id:2,
+      img_uri:'https://cdn1.vectorstock.com/i/1000x1000/73/15/female-avatar-profile-icon-round-woman-face-vector-18307315.jpg',
+      interests:[{name:'Java'},{name:'Software Engineering'},{name:'SDE'},{name:'Internship'}],
+      title:'ABC company is looking for a Java Developer'
+  },
+]
+
+
+
 
 const FirstRoute = props => {
     const[list,setList]=useState(data)
@@ -58,7 +77,10 @@ const FirstRoute = props => {
     //const[selectedItems,setSelectedItems]=useState([])
     const [value, setValue] = React.useState('all');
     const selectedItems=useRef()
-
+    const renderPerson=({item})=>{
+      return(
+              <PersonCard item={item}/>)
+  }
 
     const filterList=()=>{
         //setList([])
@@ -200,10 +222,31 @@ const FirstRoute = props => {
     };
    
   const SecondRoute = () => {
+    const renderJobs=({item})=>{
+      return(
+              <JobsCard item={item} user={findUser(item.author_id)}/>)
+    }
+    const[modalVisible,setModalVisible]=useState(false)
+    const findUser=(id)=>{
+      for(var i=0;i<data.length;i++)
+      {
+        if(data[i].id==id)
+        {
+          return data[i]
+        }
+      }
+    }
 
     return(
       <View style={[styles.scene, { backgroundColor: colors.white,flex: 1 }]} >
-
+        <FlatList
+            data={postings}
+            renderItem={renderJobs}
+            keyExtractor={(item)=>item.id}/>
+          <TouchableOpacity onPress={()=>setModalVisible(true)}
+            style={{elevation:5, justifyContent:'center', alignSelf:'flex-end', backgroundColor:colors.accent, height:50, width:50, borderRadius:25, marginBottom:5, marginEnd:5}}>
+            <Ionicons name='add-outline' size={30} color={colors.white} style={{alignSelf:'center', }} />
+          </TouchableOpacity>
       </View>
     )
   };
@@ -217,7 +260,7 @@ const FirstRoute = props => {
 
     const [routes] = React.useState([
       { key: 'first', title: 'Find People' },
-      { key: 'second', title: 'Find Job Opportunities' },
+      { key: 'second', title: 'Find Job/Collaboration Opportunities' },
     ]);
    
     const renderScene = SceneMap({
