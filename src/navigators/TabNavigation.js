@@ -57,7 +57,7 @@ const TabNavigation = () => {
       }}
     >
       <Tab.Screen name='Home' component={HomeStackNavigator} />
-      <Tab.Screen name='TrackernAnalysis' component={TrackernAnalysisStackNavigator} />
+      {/* <Tab.Screen name='TrackernAnalysis' component={TrackernAnalysisStackNavigator} /> */}
       <Tab.Screen name='Health' component={HealthStackNavigator} />
       <Tab.Screen name='Chat' component={ChatStackNavigator} />
       <Tab.Screen name='Network' component={NetworkingStackNavigator} />
