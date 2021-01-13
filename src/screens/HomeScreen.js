@@ -6,6 +6,7 @@ import axios from 'axios';
 import base64 from 'react-native-base64';
 import Carousel from 'react-native-snap-carousel';
 import { ScrollView } from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const carousalItems=[
   {uri:'https://i.pinimg.com/564x/24/4c/11/244c110b0505fc65fbc55070fbf2abbc.jpg'},
@@ -20,8 +21,20 @@ const HomeScreen=props=>{
     const myInterests=[{name:'Gardening'}, {name:'Cooking'},{name:'Singing'},{name:'Coding'}]
     const socialMedia={insta:'medhavi_17', linked:null, git:'Medhavi-16', twitter:'MedhaviSrivas11',email:'medhavi.srivastava16@gmail.com'}
     const location={country:'India',city:'Lucknow'}
-    const item={name:'Clara Dev', interests:myInterests,socialMedia:socialMedia, location:location,img_uri:'https://cdn5.vectorstock.com/i/1000x1000/73/04/female-avatar-profile-icon-round-woman-face-vector-18307304.jpg'}
+    const item={id:5,name:'Clara Dev', interests:myInterests,socialMedia:socialMedia, location:location,img_uri:'https://cdn5.vectorstock.com/i/1000x1000/73/04/female-avatar-profile-icon-round-woman-face-vector-18307304.jpg'}
 
+    useEffect(()=>{
+      const storeData = async (value) => {
+        try {
+          const jsonValue = JSON.stringify(item)
+          await AsyncStorage.setItem('@storage_Key', jsonValue)
+          //console.log(jsonValue)
+        } catch (e) {
+          // saving error
+        }
+      }
+      storeData()
+    },[])
     useEffect(() => {
         axios('https://accounts.spotify.com/api/token', {
           headers: {

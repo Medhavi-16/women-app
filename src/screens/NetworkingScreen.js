@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react';
+import React, { useState,useRef, useEffect } from 'react';
 import { StyleSheet, Text, View,Dimensions,FlatList,Modal,ScrollView,TouchableOpacity,TextInput } from 'react-native';
 import { TabView, SceneMap,TabBar } from 'react-native-tab-view';
 import { colors } from '../constants/theme';
@@ -8,6 +8,8 @@ import {Ionicons} from '@expo/vector-icons';
 import { RadioButton, Checkbox} from 'react-native-paper';
 import CheckboxGroup from 'react-native-checkbox-group'
 import BrickList from 'react-native-masonry-brick-list';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const myInterests=['Gardening', 'Cooking','Singing','Coding']
 
@@ -223,6 +225,22 @@ const FirstRoute = props => {
     };
    
   const SecondRoute = () => {
+    const user = useRef(null)
+    useEffect(()=>{
+      const getData = async () => {
+        try {
+          const jsonValue = await AsyncStorage.getItem('@storage_Key')
+          user.current=jsonValue != null ? JSON.parse(jsonValue) : null;
+          console.log(user.current)
+        } catch(e) {
+          // error reading value
+        }
+      }
+      getData()
+    },[])
+
+    const [posts,setPosts]=useState(postings)
+    //posts.current=postings
     const renderJobs=({item})=>{
       return(
               <JobsCard item={item} user={findUser(item.author_id)}/>)
@@ -239,6 +257,7 @@ const FirstRoute = props => {
     }
     const tags=useRef(new Array())
     const currentTag=useRef()
+    const title=useRef()
     const[tagInput,setTagInput] = useState(false)
 
     return(
@@ -249,7 +268,7 @@ const FirstRoute = props => {
                         <Ionicons name='close-outline' size={45} color={colors.black}/>
                     </TouchableOpacity>
                 <View style={styles.modalView}>
-                  <TextInput placeholder='Title' style={{borderWidth:1,borderRadius:3, padding:3, borderColor:colors.secondary}}/>
+                  <TextInput placeholder='Title' style={{borderWidth:1,borderRadius:3, padding:3, borderColor:colors.secondary}} onChangeText={(tit)=>title.current=tit}/>
                   <TextInput placeholder='Description' numberOfLines={3} style={{borderWidth:1,borderRadius:3, padding:3, borderColor:colors.secondary, marginVertical:3}}/>
                   <TouchableOpacity onPress={()=>{setTagInput(true);}} style={{marginTop:5, marginVertical:3,justifyContent:'space-between',backgroundColor:colors.accent,borderRadius:20,flexDirection:'row',width:110,height:30, paddingHorizontal:5,paddingVertical:4}}>
                   <Text style={{textAlign:'center', textAlignVertical:'center', color:colors.white,marginStart:5}}>Add a tag</Text>
@@ -261,7 +280,7 @@ const FirstRoute = props => {
                     placeholder='Add tag name'
                     onChangeText={(tag)=>currentTag.current=tag}
                     style={{borderColor:colors.accent,borderRadius:20,borderWidth:1,paddingHorizontal:7,marginBottom:5}}/>
-                    <TouchableOpacity onPress={()=>{setTagInput(false); tags.current=[...tags.current,{Tag:currentTag.current}]}} style={{justifyContent:'center',borderColor:colors.secondary,borderWidth:1,width:30,height:30,borderRadius:25}}>
+                    <TouchableOpacity onPress={()=>{setTagInput(false); tags.current=[...tags.current,{name:currentTag.current}]}} style={{justifyContent:'center',borderColor:colors.secondary,borderWidth:1,width:30,height:30,borderRadius:25}}>
                       <Ionicons name='checkmark' size={25} color={colors.secondary} style={{alignSelf:'center'}}/>
                     </TouchableOpacity>
                     </View>
@@ -272,23 +291,23 @@ const FirstRoute = props => {
                     renderItem={prop => {
                       return (
                           <View
-                            key={prop.Tag}
+                            key={prop.name}
                             style={styles.preferencesItem} >
-                            <Text style={styles.preferenceText}>{prop.Tag}</Text>
+                            <Text style={styles.preferenceText}>{prop.name}</Text>
                           </View>
                       );
                     }}
                     columns={3}
                     rowHeight={45}/>
                   ):(null)}
-                  <TouchableOpacity onPress={()=>setModalVisible(false)} style={{alignSelf:'center',width:100,paddingVertical:5,backgroundColor:colors.primary,borderColor:colors.secondary,borderWidth:1, borderRadius:40,elevation:5, justifyContent:'center',}}>
+                  <TouchableOpacity onPress={()=>{const arr=[...posts,{id:3,author_id:user.current['id'],name:user.current['name'],img_uri:user.current['img_uri'],title:title.current,interests:tags.current}]; setModalVisible(false); setPosts(arr)}} style={{alignSelf:'center',width:100,paddingVertical:5,backgroundColor:colors.primary,borderColor:colors.secondary,borderWidth:1, borderRadius:40,elevation:5, justifyContent:'center',}}>
                         <Text style={{textAlign:'center',fontSize:15,color:colors.secondary}}>Done</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </Modal>
         <FlatList
-            data={postings}
+            data={posts}
             renderItem={renderJobs}
             keyExtractor={(item)=>item.id}/>
           <TouchableOpacity onPress={()=>{setModalVisible(true); tags.current=[]}}
