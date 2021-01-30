@@ -1,13 +1,18 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { StyleSheet, Text, View,Image } from 'react-native';
 import { GiftedChat,Bubble } from 'react-native-gifted-chat'
 import { colors } from '../constants/theme';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import axios from "axios";
+
+import Toast from 'react-native-simple-toast';
 
 
 const ChatScreen=props=>{
 
     const [messages,setMessages]=useState([]);
+    const currentMsg=useRef('');
+    const score=useRef(0);
 
     useEffect(() => {
         setMessages([
@@ -24,7 +29,25 @@ const ChatScreen=props=>{
         ])
       }, [])
       const onSend = useCallback((messages = []) => {
-        setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+
+        currentMsg.current=messages[0].text
+        console.log(currentMsg.current)
+        axios.request(`https://us-central1-mental-health-app-6edbd.cloudfunctions.net/app/api/detect/highlight-bad-words/${currentMsg.current}`).then(function (response) {
+          
+        console.log(response.data.length);
+        if(response.data.length==0)
+        {     
+            setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
+        }
+        else
+        {
+           score.current=score.current+1;
+           Toast.show('Discredibility score '+score.current+". You would lose the rights to post anything on the group, if you cross 5 on you dicredibilty score", Toast.LONG);
+
+        }
+        }).catch(function (error) {
+          console.error(error);
+        });
       }, [])
 
       

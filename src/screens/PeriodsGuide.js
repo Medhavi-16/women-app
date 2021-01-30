@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View,FlatList,TouchableOpacity, Dimensions,Modal,Image,ScrollView } from 'react-native';
+import { StyleSheet, Text, View,FlatList,TouchableOpacity, Dimensions,Modal,Image,ScrollView,Linking } from 'react-native';
 import ImageOverlay from "react-native-image-overlay";
 import Carousel from 'react-native-snap-carousel';
 import { colors } from '../constants/theme';
@@ -52,6 +52,13 @@ const PeriodsGuide=props=>{
                 style={{ width: 60, height: 60, borderRadius:30 }}
               />
                 <Text style={{alignSelf:'center', marginStart:10}}>Period friendly Yoga and Exercises</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.card,{backgroundColor:getColor(), marginTop:50}]} onPress={()=> Linking.openURL('https://madhhuurrii.github.io/Period-Kit/index.html#/home')}>
+            <Image
+                source={{uri:'https://image.winudf.com/v2/image/Y29tLmZsb3dlci5wZXJpb2R0cmFja2VyX3NjcmVlbl8wXzE1MTc1ODU1NzFfMDk3/screen-0.jpg?fakeurl=1&type=.jpg'}}
+                style={{ width: 60, height: 60, borderRadius:30 }}
+              />
+                <Text style={{alignSelf:'center', marginStart:10}}>Track my periods</Text>
             </TouchableOpacity>
             
         </View>
