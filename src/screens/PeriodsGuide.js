@@ -53,6 +53,13 @@ const PeriodsGuide=props=>{
               />
                 <Text style={{alignSelf:'center', marginStart:10}}>Period friendly Yoga and Exercises</Text>
             </TouchableOpacity>
+            <TouchableOpacity style={[styles.card,{backgroundColor:getColor(), marginTop:50}]}>
+            <Image
+                source={{uri:'https://image.winudf.com/v2/image/Y29tLmZsb3dlci5wZXJpb2R0cmFja2VyX3NjcmVlbl8wXzE1MTc1ODU1NzFfMDk3/screen-0.jpg?fakeurl=1&type=.jpg'}}
+                style={{ width: 60, height: 60, borderRadius:30 }}
+              />
+                <Text style={{alignSelf:'center', marginStart:10}}>Track my periods</Text>
+            </TouchableOpacity>
             
         </View>
     )}

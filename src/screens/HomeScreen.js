@@ -203,7 +203,7 @@ const HomeScreen=props=>{
               <Text style={{alignSelf:'center',marginStart:10, fontSize:17}}>Find Women Support Centres</Text>
           </TouchableOpacity>
         </View>
-        <Text style={{fontSize:15, alignSelf:'center', marginTop:25, textDecorationLine:'underline'}}>Topic of the Week: Self Defense</Text>
+        <Text style={{fontSize:15, alignSelf:'center', marginTop:25, textDecorationLine:'underline'}}>The week's topic: Self Defense</Text>
         <Carousel
                   layout={'stack'}
                   //ref={ref => this.carousel = ref}

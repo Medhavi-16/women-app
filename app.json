@@ -4,9 +4,9 @@
     "slug": "women-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/FEMbraceSplash.png",
     "splash": {
-      "image": "./assets/sisterhood.png",
+      "image": "./assets/FEMbraceSplash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
